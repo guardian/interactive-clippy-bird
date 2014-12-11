@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 
@@ -7,7 +7,7 @@ var MenuState = require('./states/menu');
 var PlayState = require('./states/play');
 var PreloadState = require('./states/preload');
 
-var game = new Phaser.Game(288, 505, Phaser.AUTO, 'flappy-bird-reborn');
+var game = new Phaser.Game(300, 505, Phaser.AUTO, 'clippy-bird');
 
 // Game States
 game.state.add('boot', BootState);
@@ -307,6 +307,11 @@ Boot.prototype = {
   },
   create: function() {
     this.game.input.maxPointers = 1;
+
+    // Allow users to scroll past game
+    this.game.input.touch.preventDefault = false;
+    Phaser.Canvas.setTouchAction(this.game.canvas, 'auto');
+
     this.game.state.start('preload');
   }
 };
@@ -422,7 +427,6 @@ Play.prototype = {
     // add mouse/touch controls
     this.game.input.onDown.addOnce(this.startGame, this);
     this.game.input.onDown.add(this.bird.flap, this.bird);
-    
 
     // keep the spacebar from propogating up to the browser
     this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -539,7 +543,7 @@ Preload.prototype = {
     this.load.image('background', 'assets/background.png');
     this.load.image('ground', 'assets/ground.png');
     this.load.image('title', 'assets/title.png');
-    this.load.spritesheet('bird', 'assets/bird.png', 34,24,3);
+    this.load.spritesheet('bird', 'assets/clipman.png', 23,24,3);
     this.load.spritesheet('pipe', 'assets/pipes.png', 54,320,2);
     this.load.image('startButton', 'assets/start-button.png');
     
@@ -575,4 +579,4 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}]},{},[1])
+},{}]},{},[1]);

@@ -21,6 +21,9 @@ module.exports = function (grunt) {
     watch: {
       scripts: {
         files: [
+            'index.html',
+            'css/styles.css',
+            'assets/**/*',
             'game/**/*.js',
             '!game/main.js'
         ],
@@ -66,7 +69,6 @@ module.exports = function (grunt) {
       }
     },
     browserify: {
-      
       build: {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
