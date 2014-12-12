@@ -90,6 +90,8 @@ Play.prototype = {
     this.scoreboard.destroy();
   },
   startGame: function() {
+    this.game.input.touch.preventDefault = true;
+    
     if(!this.bird.alive && !this.gameover) {
         this.bird.body.allowGravity = true;
         this.bird.alive = true;
@@ -109,6 +111,8 @@ Play.prototype = {
     }
   },
   deathHandler: function(bird, enemy) {
+    this.game.input.touch.preventDefault = false;
+    
     if(enemy instanceof Ground && !this.bird.onGround) {
         this.groundHitSound.play();
         this.scoreboard = new Scoreboard(this.game);

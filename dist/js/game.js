@@ -311,7 +311,7 @@ Boot.prototype = {
     this.game.input.maxPointers = 1;
 
     // Allow users to scroll past game
-    this.game.input.touch.preventDefault = false;
+    //this.game.input.touch.preventDefault = false;
     Phaser.Canvas.setTouchAction(this.game.canvas, 'auto');
 
     this.game.state.start('preload');
@@ -330,6 +330,7 @@ Menu.prototype = {
 
   },
   create: function() {
+    this.game.input.touch.preventDefault = false;
     // add the background sprite
     this.background = this.game.add.tileSprite(0,0, this.game.width, 505, 'background');
     this.background.autoScroll(-30,0);
@@ -477,6 +478,8 @@ Play.prototype = {
     this.scoreboard.destroy();
   },
   startGame: function() {
+    this.game.input.touch.preventDefault = true;
+    
     if(!this.bird.alive && !this.gameover) {
         this.bird.body.allowGravity = true;
         this.bird.alive = true;
@@ -496,6 +499,8 @@ Play.prototype = {
     }
   },
   deathHandler: function(bird, enemy) {
+    this.game.input.touch.preventDefault = false;
+    
     if(enemy instanceof Ground && !this.bird.onGround) {
         this.groundHitSound.play();
         this.scoreboard = new Scoreboard(this.game);

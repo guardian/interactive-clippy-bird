@@ -7,6 +7,7 @@ Menu.prototype = {
 
   },
   create: function() {
+    this.game.input.touch.preventDefault = false;
     // add the background sprite
     this.background = this.game.add.tileSprite(0,0, this.game.width, 505, 'background');
     this.background.autoScroll(-30,0);
