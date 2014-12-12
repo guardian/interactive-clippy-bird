@@ -73,10 +73,21 @@ module.exports = function (grunt) {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
       }
+    },
+
+    uglify: {
+        options: {
+          mangle: false
+        },
+        js: {
+            files: {
+                'dist/js/game.min.js': ['dist/js/game.js']
+            }
+        }
     }
   });
   
-  grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
+  grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy', 'uglify']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);

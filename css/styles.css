@@ -2,8 +2,21 @@ body {
   background-color: #fff;
   margin:0;
   padding: 0;
+  text-align: center;
 }
 
 #clippy-bird {
   margin: 0 auto;
+  width: 100%;
+  max-width: 480px;
+}
+
+p {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 11px;
+    color: #333;
+}
+
+a {
+    color: #999;
 }

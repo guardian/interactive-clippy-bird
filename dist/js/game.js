@@ -7,7 +7,8 @@ var MenuState = require('./states/menu');
 var PlayState = require('./states/play');
 var PreloadState = require('./states/preload');
 
-var game = new Phaser.Game(300, 505, Phaser.AUTO, 'clippy-bird');
+var width = document.querySelector('#clippy-bird').clientWidth;;
+var game = new Phaser.Game(width, 505, Phaser.AUTO, 'clippy-bird');
 
 // Game States
 game.state.add('boot', BootState);
@@ -19,6 +20,7 @@ game.state.add('preload', PreloadState);
 game.state.start('boot');
 
   
+
 },{"./states/boot":7,"./states/menu":8,"./states/play":9,"./states/preload":10}],2:[function(require,module,exports){
 'use strict';
 
@@ -204,10 +206,10 @@ var Scoreboard = function(game) {
   this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
   this.scoreboard.anchor.setTo(0.5, 0.5);
   
-  this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'flappyfont', '', 18);
+  this.scoreText = this.game.add.bitmapText(this.game.width/2 + 62, 180, 'flappyfont', '', 18);
   this.add(this.scoreText);
   
-  this.bestText = this.game.add.bitmapText(this.scoreboard.width, 230, 'flappyfont', '', 18);
+  this.bestText = this.game.add.bitmapText(this.game.width/2 + 62, 230, 'flappyfont', '', 18);
   this.add(this.bestText);
 
   // add our start button with a callback
@@ -329,11 +331,12 @@ Menu.prototype = {
   },
   create: function() {
     // add the background sprite
-    this.background = this.game.add.sprite(0,0,'background');
+    this.background = this.game.add.tileSprite(0,0, this.game.width, 505, 'background');
+    this.background.autoScroll(-30,0);
     
     // add the ground sprite as a tile
     // and start scrolling in the negative x direction
-    this.ground = this.game.add.tileSprite(0,400, 335,112,'ground');
+    this.ground = this.game.add.tileSprite(0,400, this.game.width,112,'ground');
     this.ground.autoScroll(-200,0);
 
     /** STEP 1 **/
@@ -344,13 +347,13 @@ Menu.prototype = {
     /** STEP 2 **/
     // create the title sprite
     // and add it to the group
-    this.title = this.add.sprite(0,0,'title');
+    this.title = this.add.sprite(this.game.width/2 - 120,0,'title');
     this.titleGroup.add(this.title);
     
     /** STEP 3 **/
     // create the bird sprite 
     // and add it to the title group
-    this.bird = this.add.sprite(200,5,'bird');
+    this.bird = this.add.sprite(this.game.width/2 - 160 ,5,'bird');
     this.titleGroup.add(this.bird);
     
     /** STEP 4 **/
@@ -402,19 +405,20 @@ Play.prototype = {
     this.game.physics.arcade.gravity.y = 1200;
 
     // add the background sprite
-    this.background = this.game.add.sprite(0,0,'background');
+    this.background = this.game.add.tileSprite(0,0, this.game.width, this.game.height, 'background');
+    this.background.autoScroll(-30,0);
 
     // create and add a group to hold our pipeGroup prefabs
     this.pipes = this.game.add.group();
     
     // create and add a new Bird object
-    this.bird = new Bird(this.game, 100, this.game.height/2);
+    this.bird = new Bird(this.game, this.game.width/2 - 100, this.game.height/2);
     this.game.add.existing(this.bird);
     
     
 
     // create and add a new Ground object
-    this.ground = new Ground(this.game, 0, 400, 335, 112);
+    this.ground = new Ground(this.game, 0, 400, this.game.width, 112);
     this.game.add.existing(this.ground);
     
 
@@ -508,6 +512,7 @@ Play.prototype = {
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
+        this.background.stopScroll();
     }
     
   },
@@ -555,11 +560,11 @@ Preload.prototype = {
     this.load.image('gameover', 'assets/gameover.png');
     this.load.image('particle', 'assets/particle.png');
 
-    this.load.audio('flap', 'assets/flap.wav');
-    this.load.audio('pipeHit', 'assets/pipe-hit.wav');
-    this.load.audio('groundHit', 'assets/ground-hit.wav');
-    this.load.audio('score', 'assets/score.wav');
-    this.load.audio('ouch', 'assets/ouch.wav');
+    this.load.audio('flap', ['assets/flap.mp3', 'assets/flap.ogg']);
+    this.load.audio('pipeHit', ['assets/pipe-hit.mp3', 'assets/pipe-hit.ogg']);
+    this.load.audio('groundHit', ['assets/ground-hit.mp3', 'assets/ground-hit.ogg']);
+    this.load.audio('score', ['assets/score.mp3', 'assets/score.ogg']);
+    this.load.audio('ouch', ['assets/ouch.mp3', 'assets/ouch.ogg']);
 
     this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');
 

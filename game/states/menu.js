@@ -8,11 +8,12 @@ Menu.prototype = {
   },
   create: function() {
     // add the background sprite
-    this.background = this.game.add.sprite(0,0,'background');
+    this.background = this.game.add.tileSprite(0,0, this.game.width, 505, 'background');
+    this.background.autoScroll(-30,0);
     
     // add the ground sprite as a tile
     // and start scrolling in the negative x direction
-    this.ground = this.game.add.tileSprite(0,400, 335,112,'ground');
+    this.ground = this.game.add.tileSprite(0,400, this.game.width,112,'ground');
     this.ground.autoScroll(-200,0);
 
     /** STEP 1 **/
@@ -23,13 +24,13 @@ Menu.prototype = {
     /** STEP 2 **/
     // create the title sprite
     // and add it to the group
-    this.title = this.add.sprite(0,0,'title');
+    this.title = this.add.sprite(this.game.width/2 - 120,0,'title');
     this.titleGroup.add(this.title);
     
     /** STEP 3 **/
     // create the bird sprite 
     // and add it to the title group
-    this.bird = this.add.sprite(200,5,'bird');
+    this.bird = this.add.sprite(this.game.width/2 - 160 ,5,'bird');
     this.titleGroup.add(this.bird);
     
     /** STEP 4 **/

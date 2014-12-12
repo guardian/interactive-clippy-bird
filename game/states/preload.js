@@ -27,11 +27,11 @@ Preload.prototype = {
     this.load.image('gameover', 'assets/gameover.png');
     this.load.image('particle', 'assets/particle.png');
 
-    this.load.audio('flap', 'assets/flap.wav');
-    this.load.audio('pipeHit', 'assets/pipe-hit.wav');
-    this.load.audio('groundHit', 'assets/ground-hit.wav');
-    this.load.audio('score', 'assets/score.wav');
-    this.load.audio('ouch', 'assets/ouch.wav');
+    this.load.audio('flap', ['assets/flap.mp3', 'assets/flap.ogg']);
+    this.load.audio('pipeHit', ['assets/pipe-hit.mp3', 'assets/pipe-hit.ogg']);
+    this.load.audio('groundHit', ['assets/ground-hit.mp3', 'assets/ground-hit.ogg']);
+    this.load.audio('score', ['assets/score.mp3', 'assets/score.ogg']);
+    this.load.audio('ouch', ['assets/ouch.mp3', 'assets/ouch.ogg']);
 
     this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');
 

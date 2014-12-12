@@ -18,19 +18,20 @@ Play.prototype = {
     this.game.physics.arcade.gravity.y = 1200;
 
     // add the background sprite
-    this.background = this.game.add.sprite(0,0,'background');
+    this.background = this.game.add.tileSprite(0,0, this.game.width, this.game.height, 'background');
+    this.background.autoScroll(-30,0);
 
     // create and add a group to hold our pipeGroup prefabs
     this.pipes = this.game.add.group();
     
     // create and add a new Bird object
-    this.bird = new Bird(this.game, 100, this.game.height/2);
+    this.bird = new Bird(this.game, this.game.width/2 - 100, this.game.height/2);
     this.game.add.existing(this.bird);
     
     
 
     // create and add a new Ground object
-    this.ground = new Ground(this.game, 0, 400, 335, 112);
+    this.ground = new Ground(this.game, 0, 400, this.game.width, 112);
     this.game.add.existing(this.ground);
     
 
@@ -124,6 +125,7 @@ Play.prototype = {
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
+        this.background.stopScroll();
     }
     
   },
